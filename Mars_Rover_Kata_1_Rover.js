@@ -10,7 +10,7 @@ let gridSize = {
     x: 10,
     y: 10
 };
-let totalObstacles = 30; // number of obstacles on the grid
+let totalObstacles = 15; // number of obstacles on the grid
 let grid = [];
 for (let i = 0; i < 10; i++) {
     grid.push([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
@@ -149,7 +149,11 @@ function moveBackward(rover) {
     switch (rover.direction) {
         case "S":
             if (rover.y > 0 && rover.y <= 10) {
+                let prevY = rover.y
                 rover.y--;
+                if (checkCollision(grid, rover)) {
+                    rover.y = prevY;
+                }
                 break;
             } else {
                 console.log("You can't place Rover outside of the board! Turn Rover l/r (left/right).");
@@ -157,7 +161,11 @@ function moveBackward(rover) {
             }
         case "N":
             if (rover.y >= 0 && rover.y < 10) {
+                let prevY = rover.y
                 rover.y++;
+                if (checkCollision(grid, rover)) {
+                    rover.y = prevY;
+                }
                 break;
             } else {
                 console.log("You can't place Rover outside of the board! Turn Rover l/r (left/right).");
@@ -165,7 +173,11 @@ function moveBackward(rover) {
             }
         case "E":
             if (rover.x > 0 && rover.x <= 10) {
+                let prevX = rover.x
                 rover.x--;
+                if (checkCollision(grid, rover)) {
+                    rover.x = prevX;
+                }
                 break;
             } else {
                 console.log("You can't place Rover outside of the board! Turn Rover l/r (left/right).");
@@ -173,7 +185,11 @@ function moveBackward(rover) {
             }
         case "W":
             if (rover.x >= 0 && rover.x < 10) {
+                let prevX = rover.x
                 rover.x++;
+                if (checkCollision(grid, rover)) {
+                    rover.x = prevX;
+                }
                 break;
             } else {
                 console.log("You can't place Rover outside of the board! Turn Rover l/r (left/right).");
@@ -226,4 +242,5 @@ console.table(grid); // printing a table/ grid
 checkCollision(grid, rover) // checking collision with an obstacle '#'
 
 //Change commands here. You can use: l (TURN left), r (TURN right), f (MOVE forward), b (MOVE backward). Remember to keep the quotation marks! :)
-commands(rover, "rffffllffflffflfff");
+//If you want to test obstacles collision faster go to 13 line: let totalObstacles = 10; and increase the number.
+commands(rover, "lflfffffrbbbbbblfflfff");
